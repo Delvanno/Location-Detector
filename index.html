@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Show My Location</title>
+</head>
+<body>
+  <h1>Your Location</h1>
+  <p id="status">Fetching location...</p>
+  <div id="location"></div>
+
+  <script>
+    function showLocation(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      document.getElementById('location').innerHTML =
+        `Latitude: ${latitude} <br> Longitude: ${longitude} <br><a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">View on Google Maps</a>`;
+      document.getElementById('status').textContent = "Location found:";
+    }
+
+    function showError(error) {
+      document.getElementById('status').textContent = "Error getting location.";
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showLocation, showError);
+    } else {
+      document.getElementById('status').textContent = "Geolocation is not supported by this browser.";
+    }
+  </script>
+</body>
+</html>
